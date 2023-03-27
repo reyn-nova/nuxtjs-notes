@@ -3,16 +3,7 @@
     <div class="content-container">
       <h1>Projects</h1>
 
-      <icon-button backgroundColor="green" variant="add" />
-
-      <!-- <IconButton
-            variant="add"
-            backgroundColor="green"
-            onClick={() => {
-              setModalInput("");
-              setOpenedModalId(-1);
-            }}
-          /> -->
+      <icon-button background-color="green" variant="add" />
     </div>
   </div>
 </template>
