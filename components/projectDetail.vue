@@ -1,14 +1,14 @@
 <template>
   <div class="container">
     <div class="top-content-container">
-      <h1>Projects</h1>
+      <h1>Notes</h1>
 
       <icon-button background-color="green" variant="add" />
     </div>
 
-    <listItem value="Project 1" />
-    <listItem value="Project 2" />
-    <listItem value="Project 3" />
+    <listItem value="Note 1" />
+    <listItem value="Note 2" />
+    <listItem value="Note 3" />
   </div>
 </template>
 
@@ -17,7 +17,7 @@ import listItem from './listItem'
 import iconButton from './iconButton.vue'
 
 export default {
-  name: 'ProjectsPageComponent',
+  name: 'ProjectDetailPageComponent',
   components: {
     listItem,
     iconButton,

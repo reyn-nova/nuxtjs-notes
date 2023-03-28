@@ -1,6 +1,6 @@
 <template>
   <button class="icon-button-container" :style="cssVars" onClick="{onClick}">
-    <i class="material-icons">{{ variant }}</i>
+    <i id="icon" class="material-icons">{{ variant }}</i>
   </button>
 </template>
 
@@ -60,5 +60,8 @@ export default {
   height: 40px;
   margin: var(--margin);
   width: var(--width);
+}
+#icon {
+  color: white;
 }
 </style>

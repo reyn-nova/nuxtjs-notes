@@ -1,12 +1,12 @@
 <template>
-  <projects />
+  <projectDetail />
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'ProjectsPage',
+  name: 'ProjectDetailPage',
   head: {
     link: [
       {
