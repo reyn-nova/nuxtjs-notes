@@ -1,6 +1,6 @@
 <template>
   <div class="list-item-container">
-    <div>
+    <div @click="() => click()">
       <input disabled class="list-item-input" :value="value" />
     </div>
 
@@ -19,6 +19,11 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    click: {
+      type: Function,
+      required: false,
+      default: () => {},
     },
   },
 }

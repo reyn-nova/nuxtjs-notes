@@ -6,9 +6,9 @@
       <icon-button background-color="green" variant="add" />
     </div>
 
-    <listItem value="Project 1" />
-    <listItem value="Project 2" />
-    <listItem value="Project 3" />
+    <listItem value="Project 1" :click="() => $router.push(`/projects/1`)" />
+    <listItem value="Project 2" :click="() => $router.push(`/projects/2`)" />
+    <listItem value="Project 3" :click="() => $router.push(`/projects/3`)" />
   </div>
 </template>
 
