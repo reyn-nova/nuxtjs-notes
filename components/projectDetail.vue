@@ -3,29 +3,42 @@
     <div class="top-content-container">
       <h1>Notes</h1>
 
-      <icon-button background-color="green" variant="add" />
+      <iconButton
+        background-color="green"
+        variant="add"
+        :click="() => (isShowingDialogModal = true)"
+      />
     </div>
 
     <listItem value="Note 1" />
     <listItem value="Note 2" />
     <listItem value="Note 3" />
+
+    <dialogModal
+      v-if="isShowingDialogModal"
+      title="Add Note"
+      placeholder="Type your note..."
+      :close="() => (isShowingDialogModal = false)"
+    />
   </div>
 </template>
 
 <script>
-import listItem from './listItem'
-import iconButton from './iconButton.vue'
-
 export default {
   name: 'ProjectDetailPageComponent',
-  components: {
-    listItem,
-    iconButton,
+  data() {
+    return {
+      isShowingDialogModal: false,
+    }
   },
 }
 </script>
 
 <style>
+h1 {
+  margin: 0;
+}
+
 .container {
   color: white;
   align-items: center;

@@ -1,21 +1,21 @@
 <template>
-  <button class="icon-button-container" :style="cssVars" onClick="{onClick}">
+  <button class="icon-button-container" :style="cssVars" @click="() => click()">
     <i id="icon" class="material-icons">{{ variant }}</i>
   </button>
 </template>
 
 <script>
 export default {
-  name: 'ProjectsPage',
+  name: 'IconButton',
   props: {
     variant: {
       type: String,
       required: true,
     },
-    onClick: {
+    click: {
       type: Function,
       required: false,
-      default: null,
+      default: () => {},
     },
     backgroundColor: {
       type: String,
@@ -30,7 +30,7 @@ export default {
     margin: {
       type: [String, Number],
       required: false,
-      default: 0,
+      default: '0px 0px 0px 0px',
     },
   },
   head: {
@@ -55,6 +55,7 @@ export default {
 
 <style scoped>
 .icon-button-container {
+  border-radius: 5px;
   background-color: var(--background-color);
   cursor: pointer;
   height: 40px;

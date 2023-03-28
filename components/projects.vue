@@ -3,29 +3,41 @@
     <div class="top-content-container">
       <h1>Projects</h1>
 
-      <icon-button background-color="green" variant="add" />
+      <iconButton
+        background-color="green"
+        variant="add"
+        :click="() => (isShowingDialogModal = true)"
+      />
     </div>
 
     <listItem value="Project 1" :click="() => $router.push(`/projects/1`)" />
     <listItem value="Project 2" :click="() => $router.push(`/projects/2`)" />
     <listItem value="Project 3" :click="() => $router.push(`/projects/3`)" />
+
+    <dialogModal
+      v-if="isShowingDialogModal"
+      title="Add Project"
+      placeholder="Type your project name..."
+      :close="() => (isShowingDialogModal = false)"
+    />
   </div>
 </template>
 
 <script>
-import listItem from './listItem'
-import iconButton from './iconButton.vue'
-
 export default {
   name: 'ProjectsPageComponent',
-  components: {
-    listItem,
-    iconButton,
+  data() {
+    return {
+      isShowingDialogModal: false,
+    }
   },
 }
 </script>
 
 <style>
+h1 {
+  margin: 0;
+}
 .container {
   color: white;
   align-items: center;

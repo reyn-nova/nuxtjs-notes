@@ -4,16 +4,13 @@
       <input disabled class="list-item-input" :value="value" />
     </div>
 
-    <icon-button variant="edit" margin="0px 0px 0px 20px" />
+    <iconButton variant="edit" margin="0px 0px 0px 20px" />
   </div>
 </template>
 
 <script>
-import iconButton from './iconButton.vue'
-
 export default {
   name: 'ListItem',
-  components: { iconButton },
   props: {
     value: {
       type: String,
