@@ -6,19 +6,19 @@
       <iconButton
         background-color="green"
         variant="add"
-        :click="() => (isShowingDialogModal = true)"
+        :click="() => (openedItemId = -1)"
       />
     </div>
 
-    <listItem value="Note 1" />
-    <listItem value="Note 2" />
-    <listItem value="Note 3" />
+    <listItem value="Note 1" :edit="() => (openedItemId = 1)" />
+    <listItem value="Note 2" :edit="() => (openedItemId = 2)" />
+    <listItem value="Note 3" :edit="() => (openedItemId = 3)" />
 
     <dialogModal
-      v-if="isShowingDialogModal"
-      title="Add Note"
+      v-if="openedItemId !== null"
+      :title="openedItemId === -1 ? 'Add Note' : 'Edit Note'"
       placeholder="Type your note..."
-      :close="() => (isShowingDialogModal = false)"
+      :close="() => (openedItemId = null)"
     />
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
   name: 'ProjectDetailPageComponent',
   data() {
     return {
-      isShowingDialogModal: false,
+      openedItemId: null,
     }
   },
 }

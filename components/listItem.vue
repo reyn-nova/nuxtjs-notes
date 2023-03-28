@@ -4,7 +4,7 @@
       <input disabled class="list-item-input" :value="value" />
     </div>
 
-    <iconButton variant="edit" margin="0px 0px 0px 20px" />
+    <iconButton variant="edit" margin="0px 0px 0px 20px" :click="edit" />
   </div>
 </template>
 
@@ -18,6 +18,11 @@ export default {
       default: '',
     },
     click: {
+      type: Function,
+      required: false,
+      default: () => {},
+    },
+    edit: {
       type: Function,
       required: false,
       default: () => {},
