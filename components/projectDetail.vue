@@ -19,6 +19,7 @@
       :title="openedItemId === -1 ? 'Add Note' : 'Edit Note'"
       placeholder="Type your note..."
       :close="() => (openedItemId = null)"
+      :submit="(noteValue) => submitNoteChange(noteValue)"
     />
   </div>
 </template>
@@ -30,6 +31,11 @@ export default {
     return {
       openedItemId: null,
     }
+  },
+  methods: {
+    submitNoteChange(noteValue) {
+      alert(`From project detail page, the new note value is: ${noteValue}`)
+    },
   },
 }
 </script>

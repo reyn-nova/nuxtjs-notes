@@ -19,6 +19,7 @@
       title="Add Project"
       placeholder="Type your project name..."
       :close="() => (isShowingDialogModal = false)"
+      :submit="(projectName) => submitProjectChange(projectName)"
     />
   </div>
 </template>
@@ -30,6 +31,11 @@ export default {
     return {
       isShowingDialogModal: false,
     }
+  },
+  methods: {
+    submitProjectChange(projectName) {
+      alert(`From projects page, the new project name is: ${projectName}`)
+    },
   },
 }
 </script>

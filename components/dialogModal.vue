@@ -14,13 +14,14 @@
         </div>
       </div>
 
-      <input :placeholder="placeholder" class="modal-input" />
+      <input v-model="value" :placeholder="placeholder" class="modal-input" />
 
       <iconButton
         variant="done"
         background-color="green"
         width="100%"
         margin="20px 0px 0px 0px"
+        :click="() => submit(value)"
       />
     </div>
   </div>
@@ -45,6 +46,16 @@ export default {
       required: false,
       default: () => {},
     },
+    submit: {
+      type: Function,
+      required: false,
+      default: () => {},
+    },
+  },
+  data() {
+    return {
+      value: '',
+    }
   },
 }
 </script>
