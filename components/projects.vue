@@ -6,7 +6,7 @@
       <iconButton
         background-color="green"
         variant="add"
-        :click="() => (isShowingDialogModal = true)"
+        :click="() => (openedProjectId = -1)"
       />
     </div>
 
@@ -15,14 +15,20 @@
       :key="item.id"
       :value="item.value"
       :click="() => $router.push(`/projects/${item.id}`)"
+      :edit="() => (openedProjectId = item.id)"
     />
 
     <dialogModal
-      v-if="isShowingDialogModal"
+      v-if="openedProjectId !== null"
       title="Add Project"
       placeholder="Type your project name..."
-      :close="() => (isShowingDialogModal = false)"
+      :close="() => (openedProjectId = null)"
       :submit="(projectName) => submitProjectChange(projectName)"
+      :data="
+        openedProjectId !== null && openedProjectId !== -1
+          ? projects[projects.findIndex((item) => item.id === openedProjectId)]
+          : {}
+      "
     />
   </div>
 </template>
@@ -50,7 +56,7 @@ export default {
           value: 'Project 4',
         },
       ],
-      isShowingDialogModal: false,
+      openedProjectId: null,
     }
   },
   methods: {

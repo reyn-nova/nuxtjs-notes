@@ -51,10 +51,14 @@ export default {
       required: false,
       default: () => {},
     },
+    data: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
-      value: '',
+      value: this.data.value,
     }
   },
 }

@@ -23,6 +23,11 @@
       placeholder="Type your note..."
       :close="() => (openedItemId = null)"
       :submit="(noteValue) => submitNoteChange(noteValue)"
+      :data="
+        openedItemId !== null && openedItemId !== -1
+          ? notes[notes.findIndex((item) => item.id === openedItemId)]
+          : {}
+      "
     />
   </div>
 </template>
