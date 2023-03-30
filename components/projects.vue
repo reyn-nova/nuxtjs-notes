@@ -10,9 +10,12 @@
       />
     </div>
 
-    <listItem value="Project 1" :click="() => $router.push(`/projects/1`)" />
-    <listItem value="Project 2" :click="() => $router.push(`/projects/2`)" />
-    <listItem value="Project 3" :click="() => $router.push(`/projects/3`)" />
+    <listItem
+      v-for="item in projects"
+      :key="item.id"
+      :value="item.value"
+      :click="() => $router.push(`/projects/${item.id}`)"
+    />
 
     <dialogModal
       v-if="isShowingDialogModal"
@@ -29,6 +32,24 @@ export default {
   name: 'ProjectsPageComponent',
   data() {
     return {
+      projects: [
+        {
+          id: 1,
+          value: 'Project 1',
+        },
+        {
+          id: 2,
+          value: 'Project 2',
+        },
+        {
+          id: 3,
+          value: 'Project 3',
+        },
+        {
+          id: 4,
+          value: 'Project 4',
+        },
+      ],
       isShowingDialogModal: false,
     }
   },

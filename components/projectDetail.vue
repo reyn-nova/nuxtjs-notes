@@ -10,9 +10,12 @@
       />
     </div>
 
-    <listItem value="Note 1" :edit="() => (openedItemId = 1)" />
-    <listItem value="Note 2" :edit="() => (openedItemId = 2)" />
-    <listItem value="Note 3" :edit="() => (openedItemId = 3)" />
+    <listItem
+      v-for="item in notes"
+      :key="item.id"
+      :value="item.value"
+      :edit="() => (openedItemId = item.id)"
+    />
 
     <dialogModal
       v-if="openedItemId !== null"
@@ -29,6 +32,16 @@ export default {
   name: 'ProjectDetailPageComponent',
   data() {
     return {
+      notes: [
+        {
+          id: 1,
+          value: 'Note 1',
+        },
+        {
+          id: 2,
+          value: 'Note 2',
+        },
+      ],
       openedItemId: null,
     }
   },
