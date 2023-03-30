@@ -20,7 +20,7 @@
 
     <dialogModal
       v-if="openedProjectId !== null"
-      title="Add Project"
+      :title="openedProjectId === -1 ? 'Add Project' : 'Edit Project'"
       placeholder="Type your project name..."
       :close="() => (openedProjectId = null)"
       :submit="(projectName) => submitProjectChange(projectName)"
