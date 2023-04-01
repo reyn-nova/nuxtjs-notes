@@ -41,7 +41,7 @@ export default {
     baseURL: '/',
   },
 
-  serverMiddleware: ['~/api/index.js'],
+  serverMiddleware: ['~/api/index.ts'],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

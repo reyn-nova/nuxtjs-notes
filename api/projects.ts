@@ -1,11 +1,15 @@
-const establishProjectEndpoints = (app, prisma) => {
-  app.get(`/project`, async (_, res) => {
+import { Request, Response } from 'express'
+
+import { PrismaClient } from '@prisma/client'
+
+const establishProjectEndpoints = (app: any, prisma: PrismaClient) => {
+  app.get(`/project`, async (_req: Request, res: Response) => {
     const result = await prisma.project.findMany()
 
     res.status(200).json(result)
   })
 
-  app.post(`/project`, async (req, res) => {
+  app.post(`/project`, async (req: Request, res: Response) => {
     const { name } = req.body
 
     await prisma.project.create({
@@ -17,7 +21,7 @@ const establishProjectEndpoints = (app, prisma) => {
     res.status(200).json({ message: 'New project created' })
   })
 
-  app.put(`/project`, async (req, res) => {
+  app.put(`/project`, async (req: Request, res: Response) => {
     const { id, name } = req.body
 
     await prisma.project.update({
@@ -32,7 +36,7 @@ const establishProjectEndpoints = (app, prisma) => {
     res.status(200).json({ message: 'Project updated' })
   })
 
-  app.delete(`/project`, async (req, res) => {
+  app.delete(`/project`, async (req: Request, res: Response) => {
     const { id } = req.body
 
     await prisma.project.delete({

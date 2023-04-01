@@ -1,5 +1,9 @@
-const establishNoteEndpoints = (app, prisma) => {
-  app.get(`/project/:projectId`, async (req, res) => {
+import { Express, Request, Response } from 'express'
+
+import { PrismaClient } from '@prisma/client'
+
+const establishNoteEndpoints = (app: Express, prisma: PrismaClient) => {
+  app.get(`/project/:projectId`, async (req: Request, res: Response) => {
     const result = await prisma.project.findUnique({
       where: {
         id: Number(req.params.projectId),
@@ -12,7 +16,7 @@ const establishNoteEndpoints = (app, prisma) => {
     res.status(200).json(result)
   })
 
-  app.post(`/note`, async (req, res) => {
+  app.post(`/note`, async (req: Request, res: Response) => {
     const { projectId, value } = req.body
 
     const result = await prisma.note.create({
@@ -29,7 +33,7 @@ const establishNoteEndpoints = (app, prisma) => {
     res.status(200).json(result)
   })
 
-  app.put(`/note`, async (req, res) => {
+  app.put(`/note`, async (req: Request, res: Response) => {
     const { id, value } = req.body
 
     const result = await prisma.note.update({
@@ -44,7 +48,7 @@ const establishNoteEndpoints = (app, prisma) => {
     res.status(200).json(result)
   })
 
-  app.delete(`/note`, async (req, res) => {
+  app.delete(`/note`, async (req: Request, res: Response) => {
     const { id } = req.body
 
     const result = await prisma.note.delete({

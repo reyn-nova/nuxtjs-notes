@@ -1,4 +1,3 @@
-// index.js
 import express, { json } from 'express'
 import { PrismaClient } from '@prisma/client'
 
