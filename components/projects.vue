@@ -13,7 +13,7 @@
     <listItem
       v-for="item in projects"
       :key="item.id"
-      :value="item.value"
+      :value="item.name"
       :click="() => $router.push(`/projects/${item.id}`)"
       :edit="() => (openedProjectId = item.id)"
     />
@@ -24,11 +24,7 @@
       placeholder="Type your project name..."
       :close="() => (openedProjectId = null)"
       :submit="(projectName) => submitProjectChange(projectName)"
-      :data="
-        openedProjectId !== null && openedProjectId !== -1
-          ? projects[projects.findIndex((item) => item.id === openedProjectId)]
-          : {}
-      "
+      :data="getProjectItem()"
     />
   </div>
 </template>
@@ -38,30 +34,37 @@ export default {
   name: 'ProjectsPageComponent',
   data() {
     return {
-      projects: [
-        {
-          id: 1,
-          value: 'Project 1',
-        },
-        {
-          id: 2,
-          value: 'Project 2',
-        },
-        {
-          id: 3,
-          value: 'Project 3',
-        },
-        {
-          id: 4,
-          value: 'Project 4',
-        },
-      ],
+      projects: [],
       openedProjectId: null,
     }
+  },
+  async created() {
+    this.projects = await this.getProjects()
   },
   methods: {
     submitProjectChange(projectName) {
       alert(`From projects page, the new project name is: ${projectName}`)
+    },
+    async getProjects() {
+      const resJson = await fetch('/api/project').then((res) => res.json())
+
+      return resJson
+    },
+    getProjectItem() {
+      let item = {}
+
+      if (this.openedProjectId !== null && this.openedProjectId !== -1) {
+        item = {
+          ...this.projects[
+            this.projects.findIndex((item) => item.id === this.openedProjectId)
+          ],
+        }
+
+        item.value = item.name
+        item.name = null
+      }
+
+      return item
     },
   },
 }
