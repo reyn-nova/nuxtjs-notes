@@ -40,7 +40,7 @@ export default {
     }
   },
   async mounted() {
-    this.projects = (await this.getProjects()).sort((a, b) => a.id - b.id)
+    this.projects = await this.getProjects()
   },
   methods: {
     async submitProjectChange(projectName) {
@@ -53,9 +53,15 @@ export default {
           headers: {
             'Content-Type': 'application/json',
           },
-        }).then(() => {
-          window.location.reload(true)
         })
+          .then(() => {
+            window.location.reload(true)
+          })
+          .catch((err) => {
+            alert(err.toString())
+
+            window.location.reload(true)
+          })
       } else if (this.openedProjectId !== null) {
         await fetch(`/api/project`, {
           body: JSON.stringify({
@@ -66,9 +72,15 @@ export default {
           headers: {
             'Content-Type': 'application/json',
           },
-        }).then(() => {
-          window.location.reload(true)
         })
+          .then(() => {
+            window.location.reload(true)
+          })
+          .catch((err) => {
+            alert(err.toString())
+
+            window.location.reload(true)
+          })
       }
     },
     async deleteProject() {
@@ -80,14 +92,28 @@ export default {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(() => {
-        window.location.reload(true)
       })
+        .then(() => {
+          window.location.reload(true)
+        })
+        .catch((err) => {
+          alert(err.toString())
+
+          window.location.reload(true)
+        })
     },
     async getProjects() {
-      const resJson = await fetch(`/api/project`).then((res) => res.json())
+      try {
+        const resJson = await fetch(`/api/project`).then((res) => res.json())
 
-      return resJson
+        resJson.sort((a, b) => a.id - b.id)
+
+        return resJson
+      } catch (err) {
+        alert(err.toString())
+
+        return []
+      }
     },
     getProjectItem() {
       let item = {}

@@ -45,7 +45,7 @@ export default {
   async mounted() {
     const projectId = this.$route.params.project_id
 
-    this.notes = (await this.getNotes(projectId)).sort((a, b) => a.id - b.id)
+    this.notes = await this.getNotes(projectId)
   },
   methods: {
     async submitNoteChange(noteValue) {
@@ -59,9 +59,15 @@ export default {
           headers: {
             'Content-Type': 'application/json',
           },
-        }).then(() => {
-          window.location.reload(true)
         })
+          .then(() => {
+            window.location.reload(true)
+          })
+          .catch((err) => {
+            alert(err.toString())
+
+            window.location.reload(true)
+          })
       } else if (this.openedItemId !== null) {
         await fetch(`/api/note`, {
           body: JSON.stringify({
@@ -72,9 +78,15 @@ export default {
           headers: {
             'Content-Type': 'application/json',
           },
-        }).then(() => {
-          window.location.reload(true)
         })
+          .then(() => {
+            window.location.reload(true)
+          })
+          .catch((err) => {
+            alert(err.toString())
+
+            window.location.reload(true)
+          })
       }
     },
     async deleteNote() {
@@ -86,16 +98,30 @@ export default {
         headers: {
           'Content-Type': 'application/json',
         },
-      }).then(() => {
-        window.location.reload(true)
       })
+        .then(() => {
+          window.location.reload(true)
+        })
+        .catch((err) => {
+          alert(err.toString())
+
+          window.location.reload(true)
+        })
     },
     async getNotes(id) {
-      const resJson = await fetch(`/api/project/${id}`).then((res) =>
-        res.json()
-      )
+      try {
+        const resJson = await fetch(`/api/project/${id}`).then((res) =>
+          res.json()
+        )
 
-      return resJson.notes
+        resJson.notes.sort((a, b) => a.id - b.id)
+
+        return resJson.notes
+      } catch (err) {
+        alert(err.toString())
+
+        return []
+      }
     },
   },
 }

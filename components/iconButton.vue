@@ -1,5 +1,10 @@
 <template>
-  <button class="icon-button-container" :style="cssVars" @click="() => click()">
+  <button
+    type="button"
+    class="icon-button-container"
+    :style="cssVars"
+    @click="() => click()"
+  >
     <i id="icon" class="material-icons">{{ variant }}</i>
   </button>
 </template>

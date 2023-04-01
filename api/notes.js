@@ -9,7 +9,7 @@ const establishNoteEndpoints = (app, prisma) => {
       },
     })
 
-    res.json(result)
+    res.status(200).json(result)
   })
 
   app.post(`/note`, async (req, res) => {
@@ -26,7 +26,7 @@ const establishNoteEndpoints = (app, prisma) => {
       },
     })
 
-    res.json(result)
+    res.status(200).json(result)
   })
 
   app.put(`/note`, async (req, res) => {
@@ -41,7 +41,7 @@ const establishNoteEndpoints = (app, prisma) => {
       },
     })
 
-    res.json(result)
+    res.status(200).json(result)
   })
 
   app.delete(`/note`, async (req, res) => {
@@ -53,7 +53,7 @@ const establishNoteEndpoints = (app, prisma) => {
       },
     })
 
-    res.json(result)
+    res.status(200).json(result)
   })
 }
 

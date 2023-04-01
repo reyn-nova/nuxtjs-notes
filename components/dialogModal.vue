@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-container">
+  <form class="modal-container" @submit.prevent="() => submit(value)">
     <div class="modal-inner-container">
       <div class="modal-top-content-container">
         <h1>{{ title }}</h1>
@@ -15,7 +15,13 @@
         </div>
       </div>
 
-      <input v-model="value" :placeholder="placeholder" class="modal-input" />
+      <input
+        ref="input"
+        v-model="value"
+        autofocus="true"
+        :placeholder="placeholder"
+        class="modal-input"
+      />
 
       <iconButton
         variant="done"
@@ -25,7 +31,7 @@
         :click="() => submit(value)"
       />
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -66,6 +72,9 @@ export default {
     return {
       value: this.data.value,
     }
+  },
+  mounted() {
+    this.$refs.input.focus()
   },
 }
 </script>

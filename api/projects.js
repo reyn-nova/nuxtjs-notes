@@ -2,7 +2,7 @@ const establishProjectEndpoints = (app, prisma) => {
   app.get(`/project`, async (_, res) => {
     const result = await prisma.project.findMany()
 
-    res.json(result)
+    res.status(200).json(result)
   })
 
   app.post(`/project`, async (req, res) => {
@@ -14,7 +14,7 @@ const establishProjectEndpoints = (app, prisma) => {
       },
     })
 
-    res.json({ message: 'New project created' })
+    res.status(200).json({ message: 'New project created' })
   })
 
   app.put(`/project`, async (req, res) => {
@@ -29,7 +29,7 @@ const establishProjectEndpoints = (app, prisma) => {
       },
     })
 
-    res.json({ message: 'Project updated' })
+    res.status(200).json({ message: 'Project updated' })
   })
 
   app.delete(`/project`, async (req, res) => {
@@ -41,7 +41,7 @@ const establishProjectEndpoints = (app, prisma) => {
       },
     })
 
-    res.json({ message: 'Project deleted' })
+    res.status(200).json({ message: 'Project deleted' })
   })
 }
 
