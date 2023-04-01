@@ -22,6 +22,7 @@
       v-if="openedProjectId !== null"
       :title="openedProjectId === -1 ? 'Add Project' : 'Edit Project'"
       placeholder="Type your project name..."
+      :remove="deleteProject"
       :close="() => (openedProjectId = null)"
       :submit="(projectName) => submitProjectChange(projectName)"
       :data="getProjectItem()"
@@ -38,15 +39,53 @@ export default {
       openedProjectId: null,
     }
   },
-  async created() {
+  async mounted() {
     this.projects = await this.getProjects()
   },
   methods: {
-    submitProjectChange(projectName) {
-      alert(`From projects page, the new project name is: ${projectName}`)
+    async submitProjectChange(projectName) {
+      if (this.openedProjectId === -1) {
+        await fetch(`/api/project`, {
+          body: JSON.stringify({
+            name: projectName,
+          }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(() => {
+          window.location.reload(true)
+        })
+      } else if (this.openedProjectId !== null) {
+        await fetch(`/api/project`, {
+          body: JSON.stringify({
+            id: this.openedProjectId,
+            name: projectName,
+          }),
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(() => {
+          window.location.reload(true)
+        })
+      }
+    },
+    async deleteProject() {
+      await fetch(`/api/project`, {
+        body: JSON.stringify({
+          id: this.openedProjectId,
+        }),
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(() => {
+        window.location.reload(true)
+      })
     },
     async getProjects() {
-      const resJson = await fetch('/api/project').then((res) => res.json())
+      const resJson = await fetch(`/api/project`).then((res) => res.json())
 
       return resJson
     },

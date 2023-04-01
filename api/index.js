@@ -1,17 +1,14 @@
 // index.js
-import express from 'express'
+import express, { json } from 'express'
 import { PrismaClient } from '@prisma/client'
+import { establishProjectEndpoint } from './projects'
 
 const prisma = new PrismaClient()
 const app = express()
 
-app.use(express.json())
+app.use(json())
 
-app.get(`/project`, async (_, res) => {
-  const result = await prisma.project.findMany()
-
-  res.json(result)
-})
+establishProjectEndpoint(app, prisma)
 
 app.get(`/project/:id`, async (req, res) => {
   const result = await prisma.project.findUnique({

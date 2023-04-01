@@ -9,6 +9,7 @@
             variant="delete"
             background-color="red"
             margin="0px 10px 0px 0px"
+            :click="remove"
           />
           <iconButton variant="close" :click="close" />
         </div>
@@ -40,6 +41,11 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    remove: {
+      type: Function,
+      required: false,
+      default: () => {},
     },
     close: {
       type: Function,

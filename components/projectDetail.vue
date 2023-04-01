@@ -41,7 +41,7 @@ export default {
       openedItemId: null,
     }
   },
-  async created() {
+  async mounted() {
     const projectId = this.$route.params.project_id
 
     this.notes = await this.getNotes(projectId)
