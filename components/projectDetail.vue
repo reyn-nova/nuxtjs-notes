@@ -21,6 +21,7 @@
       v-if="openedItemId !== null"
       :title="openedItemId === -1 ? 'Add Note' : 'Edit Note'"
       placeholder="Type your note..."
+      :remove="deleteNote"
       :close="() => (openedItemId = null)"
       :submit="(noteValue) => submitNoteChange(noteValue)"
       :data="
@@ -44,18 +45,57 @@ export default {
   async mounted() {
     const projectId = this.$route.params.project_id
 
-    this.notes = await this.getNotes(projectId)
+    this.notes = (await this.getNotes(projectId)).sort((a, b) => a.id - b.id)
   },
   methods: {
-    submitNoteChange(noteValue) {
-      alert(`From project detail page, the new note value is: ${noteValue}`)
+    async submitNoteChange(noteValue) {
+      if (this.openedItemId === -1) {
+        await fetch(`/api/note`, {
+          body: JSON.stringify({
+            projectId: this.$route.params.project_id,
+            value: noteValue,
+          }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(() => {
+          window.location.reload(true)
+        })
+      } else if (this.openedItemId !== null) {
+        await fetch(`/api/note`, {
+          body: JSON.stringify({
+            id: this.openedItemId,
+            value: noteValue,
+          }),
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }).then(() => {
+          window.location.reload(true)
+        })
+      }
+    },
+    async deleteNote() {
+      await fetch(`/api/note`, {
+        body: JSON.stringify({
+          id: this.openedItemId,
+        }),
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then(() => {
+        window.location.reload(true)
+      })
     },
     async getNotes(id) {
       const resJson = await fetch(`/api/project/${id}`).then((res) =>
         res.json()
       )
 
-      return resJson.Note
+      return resJson.notes
     },
   },
 }

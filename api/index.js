@@ -1,27 +1,17 @@
 // index.js
 import express, { json } from 'express'
 import { PrismaClient } from '@prisma/client'
-import { establishProjectEndpoint } from './projects'
 
-const prisma = new PrismaClient()
+import { establishProjectEndpoints } from './projects'
+import { establishNoteEndpoints } from './notes'
+
 const app = express()
-
 app.use(json())
 
-establishProjectEndpoint(app, prisma)
+const prisma = new PrismaClient()
 
-app.get(`/project/:id`, async (req, res) => {
-  const result = await prisma.project.findUnique({
-    where: {
-      id: Number(req.params.id),
-    },
-    include: {
-      Note: true,
-    },
-  })
-
-  res.json(result)
-})
+establishProjectEndpoints(app, prisma)
+establishNoteEndpoints(app, prisma)
 
 /**
  * logic for our api will go here

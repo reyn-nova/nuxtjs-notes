@@ -1,4 +1,4 @@
-const establishProjectEndpoint = (app, prisma) => {
+const establishProjectEndpoints = (app, prisma) => {
   app.get(`/project`, async (_, res) => {
     const result = await prisma.project.findMany()
 
@@ -45,4 +45,4 @@ const establishProjectEndpoint = (app, prisma) => {
   })
 }
 
-export { establishProjectEndpoint }
+export { establishProjectEndpoints }

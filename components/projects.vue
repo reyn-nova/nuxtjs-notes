@@ -40,7 +40,7 @@ export default {
     }
   },
   async mounted() {
-    this.projects = await this.getProjects()
+    this.projects = (await this.getProjects()).sort((a, b) => a.id - b.id)
   },
   methods: {
     async submitProjectChange(projectName) {
