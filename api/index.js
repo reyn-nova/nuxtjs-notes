@@ -13,6 +13,19 @@ app.get(`/project`, async (_, res) => {
   res.json(result)
 })
 
+app.get(`/project/:id`, async (req, res) => {
+  const result = await prisma.project.findUnique({
+    where: {
+      id: Number(req.params.id),
+    },
+    include: {
+      Note: true,
+    },
+  })
+
+  res.json(result)
+})
+
 /**
  * logic for our api will go here
  */

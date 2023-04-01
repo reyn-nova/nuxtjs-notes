@@ -37,22 +37,25 @@ export default {
   name: 'ProjectDetailPageComponent',
   data() {
     return {
-      notes: [
-        {
-          id: 1,
-          value: 'Note 1',
-        },
-        {
-          id: 2,
-          value: 'Note 2',
-        },
-      ],
+      notes: [],
       openedItemId: null,
     }
+  },
+  async created() {
+    const projectId = this.$route.params.project_id
+
+    this.notes = await this.getNotes(projectId)
   },
   methods: {
     submitNoteChange(noteValue) {
       alert(`From project detail page, the new note value is: ${noteValue}`)
+    },
+    async getNotes(id) {
+      const resJson = await fetch(`/api/project/${id}`).then((res) =>
+        res.json()
+      )
+
+      return resJson.Note
     },
   },
 }
